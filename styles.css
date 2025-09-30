@@ -850,13 +850,15 @@ body {
 .project-card {
     background: white;
     border-radius: 20px;
-    overflow: hidden;
+    overflow: visible !important; /* CRITICAL FIX: Allow buttons to be visible */
     margin-bottom: 3rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     display: grid;
     grid-template-columns: 1fr 1.5fr;
-    min-height: 400px;
+    min-height: 450px !important; /* INCREASED: More space for content */
+    max-height: none !important; /* REMOVED: No height restriction */
+    padding-bottom: 20px !important; /* ADDED: Extra space for buttons */
 }
 
 .project-card:hover {
@@ -885,6 +887,25 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    /* FIXED: Allow content to be visible and ensure proper spacing */
+    min-height: 0;
+    overflow: visible !important; /* CRITICAL FIX: Allow buttons to be visible */
+    /* Better width control for typography */
+    max-width: 100%;
+    /* Ensure buttons have space */
+    padding-bottom: 80px !important; /* ADDED: Extra space for buttons */
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/* Ensure proper content flow and spacing */
+.project-content > * {
+    flex-shrink: 0;
+}
+
+.project-content > p {
+    flex-shrink: 1; /* Allow description to shrink if needed */
+    flex-grow: 0;   /* Don't grow beyond clamp */
 }
 
 .project-content h3 {
@@ -899,6 +920,13 @@ body {
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-bottom: 1.5rem;
+    /* Constrain tags to prevent layout breaking */
+    max-width: 100%;
+    max-height: 3rem; /* Limit to roughly 2 rows of tags */
+    overflow: hidden;
+    /* Ensure smooth wrapping */
+    align-items: flex-start;
+    align-content: flex-start;
 }
 
 .tag {
@@ -910,10 +938,37 @@ body {
     font-weight: 500;
 }
 
-.project-content p {
+/* Project card description with robust line clamping */
+.project-content > p,
+.project-card .project-content p {
     color: #64748b;
     line-height: 1.6;
     margin-bottom: 1.5rem;
+
+    /* FORCED SHORT line-clamp implementation */
+    display: -webkit-box;
+    -webkit-line-clamp: 2 !important; /* REDUCED to 2 lines */
+    line-clamp: 2 !important;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 3.2rem !important; /* 2 lines only */
+
+    /* Typography constraints */
+    max-width: 100%;
+    font-size: 0.95rem;
+
+    /* Ensure proper text wrapping */
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+
+    /* Fallback for non-webkit browsers */
+    max-height: 4.8rem; /* Approximately 3 lines at 1.6 line-height */
+
+    /* Prevent any layout expansion */
+    min-height: 0;
+    flex-shrink: 1;
 }
 
 .project-highlights {
@@ -1384,6 +1439,68 @@ body {
     text-decoration: underline;
 }
 
+/* Project Modal Specific Styles */
+.project-modal-content {
+    padding: 0;
+}
+
+.project-modal-header {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    align-items: flex-start;
+}
+
+.project-modal-image {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.project-modal-info {
+    flex: 1;
+}
+
+.project-modal-info h2 {
+    margin: 0 0 1rem 0;
+    color: #1e293b;
+    font-size: 1.8rem;
+}
+
+.project-category {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+}
+
+.project-modal-description,
+.project-modal-impact,
+.project-modal-demo,
+.project-modal-links {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.project-modal-links:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.modal-links-grid {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.modal-links-grid .btn-link {
+    flex: 1;
+    min-width: 140px;
+    text-align: center;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .hamburger {
@@ -1519,10 +1636,25 @@ body {
     
     .project-card {
         grid-template-columns: 1fr;
+        min-height: auto;
+        max-height: none; /* Allow more height on mobile */
     }
-    
+
     .project-content {
         padding: 1.5rem;
+    }
+
+    /* Mobile-specific description styling - FORCED SHORT */
+    .project-content > p,
+    .project-card .project-content p {
+        -webkit-line-clamp: 2 !important; /* REDUCED to 2 lines */
+        line-clamp: 2 !important;
+        max-height: 3.2rem !important; /* 2 lines at 1.6 line-height */
+        font-size: 0.9rem;
+    }
+
+    .project-tags {
+        max-height: 4rem; /* Allow more tag space on mobile */
     }
     
     .project-links {
@@ -1541,6 +1673,24 @@ body {
         width: 95%;
         margin: 10% auto;
     }
+
+    .project-modal-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .project-modal-image {
+        width: 100%;
+        height: 200px;
+    }
+
+    .modal-links-grid {
+        flex-direction: column;
+    }
+
+    .modal-links-grid .btn-link {
+        width: 100%;
+    }
     
     .dashboard-row {
         flex-direction: column;
@@ -1548,7 +1698,297 @@ body {
     
     .dashboard-gallery img {
         width: 100% !important;
-        margin: 0.5rem 0 !important;
+
+/* ============================================
+   ROBUST CARD LAYOUT SYSTEM (Complete Override)
+   ============================================ */
+
+/* 1. Card Container - Flexible Grid Structure */
+.project-card {
+    display: grid !important;
+    grid-template-columns: 1fr 1.5fr !important;
+    gap: 0 !important;
+    background: white !important;
+    border-radius: 20px !important;
+    overflow: visible !important; /* CRITICAL FIX: Allow buttons to be visible */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+
+    /* Remove problematic height constraints */
+    height: auto !important;
+    max-height: none !important;
+    min-height: 350px !important; /* Consistent minimum height */
+}
+
+/* 2. Image Container with Proper Aspect Ratio */
+.project-image {
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.project-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    aspect-ratio: 16/9 !important;
+}
+
+/* 3. Content Body - Flexible Column Layout */
+.project-content {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 2.5rem !important;
+    min-width: 0 !important; /* Prevent flex item from overflowing */
+    height: auto !important;
+    overflow: visible !important;
+    justify-content: space-between !important;
+    min-height: 320px !important; /* Ensure minimum space for content + buttons */
+}
+
+/* 4. Title */
+.project-content h3 {
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+    color: #1e293b !important;
+    margin: 0 0 1rem 0 !important;
+    line-height: 1.3 !important;
+}
+
+/* 5. Tags - Natural Wrapping, No Height Limits */
+.project-tags {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1.5rem !important;
+    /* Remove all height constraints */
+    max-height: none !important;
+    min-height: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.project-tags .tag {
+    background: #e2e8f0 !important;
+    color: #475569 !important;
+    padding: 0.3rem 0.8rem !important;
+    border-radius: 15px !important;
+    font-size: 0.8rem !important;
+    font-weight: 500 !important;
+    white-space: nowrap !important;
+}
+
+/* 6. Description with Smart Line Clamp */
+.project-content > p {
+    color: #64748b !important;
+    line-height: 1.6 !important;
+    margin: 0 0 1.5rem 0 !important;
+    flex: 1 !important; /* Take available space */
+
+    /* FORCED SHORT line clamp - ALWAYS show Read More */
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important; /* REDUCED to 2 lines */
+    line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    word-wrap: break-word !important;
+    hyphens: auto !important;
+    max-height: 3.2rem !important; /* 2 lines only */
+}
+
+/* 7. Highlights Section */
+.project-highlights {
+    margin-bottom: 1.5rem !important;
+    flex-shrink: 0 !important;
+}
+
+.project-highlights ul {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.project-highlights li {
+    color: #64748b !important;
+    font-size: 0.9rem !important;
+    margin-bottom: 0.5rem !important;
+    line-height: 1.4 !important;
+}
+
+/* 8. Buttons - Always Visible at Bottom */
+.project-links {
+    display: flex !important;
+    gap: 1rem !important;
+    flex-wrap: wrap !important;
+    margin-top: auto !important; /* Push to bottom */
+    flex-shrink: 0 !important; /* Never shrink */
+    padding-top: 1rem !important;
+    min-height: 50px !important; /* Ensure space for buttons */
+    position: relative !important;
+    z-index: 10 !important; /* Always on top */
+}
+
+.project-links .btn-link {
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 8px !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    font-size: 0.9rem !important;
+}
+
+/* Ensure Read More is visible by default - FORCE VISIBILITY */
+.project-links button[data-read-more="true"] {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    z-index: 100 !important;
+}
+
+/* Override any hiding attempts */
+.project-card .project-links button {
+    display: inline-flex !important;
+}
+
+/* CRITICAL FIX: Multiple selectors to ensure Read More buttons are ALWAYS visible */
+button[data-read-more="true"],
+button[onclick*="openProjectModal"],
+.project-links button[onclick*="openProjectModal"],
+.btn-link[onclick*="openProjectModal"] {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+/* ULTRA FORCE: Ensure project-links container is always visible */
+.project-links {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    min-height: 50px !important; /* Force minimum height */
+    margin-top: auto !important; /* Push to bottom */
+}
+
+/* ULTRA FORCE: Every possible Read More button selector */
+button[data-read-more="true"],
+button[onclick*="openProjectModal"], 
+.project-links button,
+.btn-link[onclick*="openProjectModal"],
+.project-content button,
+.project-card button {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    z-index: 9999 !important;
+    background: #2563eb !important;
+    color: white !important;
+    padding: 10px 20px !important;
+    border: none !important;
+    border-radius: 8px !important;
+    text-decoration: none !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    min-width: 120px !important;
+    height: auto !important;
+    line-height: 1.4 !important;
+}
+
+/* Override ANY display: none attempts */
+.project-card *[style*="display: none"] button,
+.project-card *[style*="visibility: hidden"] button {
+    display: inline-flex !important;
+    visibility: visible !important;
+}
+
+/* SPECIAL FIX: Target Weather Energy project specifically */
+.project-card h3[title*="Weather-Driven Energy"] ~ .project-content .project-links button,
+.project-card h3[title*="Australian Energy Market"] ~ .project-content .project-links button,
+.project-card:has(h3:contains("Weather-Driven Energy")) .project-links button,
+.project-card:has(h3:contains("Australian Energy Market")) .project-links button {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    z-index: 99999 !important;
+    background: #e11d48 !important; /* Different color to identify special fix */
+    color: white !important;
+    padding: 12px 24px !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 8px !important;
+    text-decoration: none !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    min-width: 140px !important;
+}
+
+/* NUCLEAR OPTION: Force every button in every project card to be visible */
+.project-card .project-content button,
+.project-card .project-links button,
+.project-card button[data-read-more],
+.project-card button[onclick] {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    z-index: 9999 !important;
+}
+
+/* CRITICAL FIX: Absolutely position project-links at bottom of cards */
+.project-links {
+    position: absolute !important;
+    bottom: 20px !important;
+    left: 20px !important;
+    right: 20px !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    padding: 15px !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+    display: flex !important;
+    gap: 1rem !important;
+    align-items: center !important;
+    z-index: 1000 !important;
+}
+
+/* Ensure parent project-content has relative positioning */
+.project-content {
+    position: relative !important;
+}
+
+/* 9. Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+    .project-card {
+        grid-template-columns: 1fr !important;
+        min-height: auto !important;
+    }
+
+    .project-content {
+        padding: 1.5rem !important;
+    }
+
+    .project-content > p {
+        -webkit-line-clamp: 2 !important; /* REDUCED to 2 lines */
+        line-clamp: 2 !important;
+        max-height: 3.2rem !important; /* 2 lines only */
+    }
+
+    .project-links {
+        flex-direction: column !important;
+    }
+
+    .project-links .btn-link {
+        width: 100% !important;
+        justify-content: center !important;
     }
 }
 
@@ -1575,5 +2015,10 @@ body {
     
     .project-links {
         flex-direction: column;
+    }
+    
+    .project-links .btn-link {
+        width: 100% !important;
+        justify-content: center !important;
     }
 }
