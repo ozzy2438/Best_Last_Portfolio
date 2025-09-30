@@ -24,12 +24,14 @@ if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
-// PostgreSQL connection
+// PostgreSQL connection - Parse connection string and add SSL config
+const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false
-    }
+    connectionString: connectionString,
+    ssl: connectionString.includes('sslmode=require') ? {
+        rejectUnauthorized: false,
+        require: true
+    } : false
 });
 
 // Test database connection
