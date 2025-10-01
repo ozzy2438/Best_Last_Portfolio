@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'https://best-last-portfolio.onrender.com/api';
 
 // Simple markdown to HTML converter for README copy-paste
 function markdownToHTML(text) {

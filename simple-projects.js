@@ -1,7 +1,7 @@
 console.log('🚀 Simple projects script loaded');
 
 // API configuration
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'https://best-last-portfolio.onrender.com/api';
 
 // Simple markdown to HTML converter for project descriptions
 function markdownToHTML(text) {
