@@ -163,11 +163,9 @@ function prepareProjectDetails(projects) {
                 fullContent += `
                     <h3>📸 Additional Images</h3>
                     <div class="dashboard-gallery">
-                        <div class="dashboard-row">
-                            ${additionalImages.map(imagePath => {
-                                return `<img src="${imagePath.trim()}" alt="Project Screenshot" style="width: 48%; margin-right: 2%; margin-bottom: 1rem;">`;
-                            }).join('')}
-                        </div>
+                        ${additionalImages.map(imagePath => {
+                            return `<img src="${imagePath.trim()}" alt="Project Screenshot" style="width: 100%; max-width: 800px; margin-bottom: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">`;
+                        }).join('')}
                     </div>
                 `;
             }
