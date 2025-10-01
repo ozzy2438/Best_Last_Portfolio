@@ -291,6 +291,7 @@ async function editProject(id) {
             document.getElementById('full_description').value = project.full_description || '';
             document.getElementById('technologies').value = project.technologies || '';
             document.getElementById('category').value = project.category || '';
+            document.getElementById('status').value = project.status || 'active';
             document.getElementById('github_url').value = project.github_url || '';
             document.getElementById('live_demo_url').value = project.live_demo_url || '';
             document.getElementById('impact_metrics').value = project.impact_metrics || '';
