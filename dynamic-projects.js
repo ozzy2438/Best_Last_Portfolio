@@ -113,17 +113,31 @@ function prepareProjectDetails(projects) {
         `;
 
         if (project.demo_video_path) {
-            // Support both YouTube embeds and direct video links
+            // Support YouTube, Vimeo, and direct video links
             const isYouTube = project.demo_video_path.includes('youtube.com') || project.demo_video_path.includes('youtu.be');
+            const isVimeo = project.demo_video_path.includes('vimeo.com');
 
             if (isYouTube) {
-                // Extract video ID and create embed
+                // Extract YouTube video ID and create embed
                 let videoId = project.demo_video_path.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/)?.[1];
                 fullContent = `
                     <div class="video-demo-section">
                         <h3>🎥 Project Demo</h3>
                         <div class="video-container">
                             <iframe width="100%" height="450" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                ` + fullContent;
+            } else if (isVimeo) {
+                // Extract Vimeo video ID - format: vimeo.com/VIDEO_ID or vimeo.com/VIDEO_ID/HASH
+                let vimeoMatch = project.demo_video_path.match(/vimeo\.com\/(\d+)(?:\/([a-z0-9]+))?/);
+                let videoId = vimeoMatch?.[1];
+                let hash = vimeoMatch?.[2] ? `?h=${vimeoMatch[2]}` : '';
+                fullContent = `
+                    <div class="video-demo-section">
+                        <h3>🎥 Project Demo</h3>
+                        <div class="video-container">
+                            <iframe src="https://player.vimeo.com/video/${videoId}${hash}" width="100%" height="450" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
                         </div>
                     </div>
                 ` + fullContent;
