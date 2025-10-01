@@ -383,17 +383,17 @@ Built with **Python** and `SQL Server` for data processing.
 
             <div class="form-group">
                 <label for="cover_image">Cover Photo *</label>
-                <div id="current-cover-image" style="display: none; margin-bottom: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 0.5rem;">
-                    <div style="display: flex; align-items: center; justify-content: space-between;">
-                        <div>
-                            <strong>Current:</strong> <span id="current-cover-name"></span>
-                            <br><small style="color: #666;">Check below to remove, or upload new file to replace</small>
+                <div id="current-cover-image" style="display: none; margin-bottom: 1rem; padding: 1rem; background: #e8f5e9; border-radius: 0.5rem; border: 2px solid #4caf50;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+                        <div style="flex: 1;">
+                            <strong style="color: #2e7d32;">✓ Current:</strong> <span id="current-cover-name" style="color: #555;"></span>
+                            <br><small style="color: #666;">Upload a new file below to replace, or click delete to remove</small>
                         </div>
-                        <img id="current-cover-preview" src="" alt="Cover preview" style="max-width: 100px; max-height: 60px; border-radius: 0.25rem;">
+                        <img id="current-cover-preview" src="" alt="Cover preview" style="max-width: 120px; max-height: 80px; border-radius: 0.5rem; border: 2px solid #ddd;">
                     </div>
-                    <label style="margin-top: 0.5rem; display: block;">
-                        <input type="checkbox" id="delete_cover_image" name="delete_cover_image" value="true">
-                        🗑️ Remove current cover image
+                    <label style="margin-top: 0.75rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.5rem; background: white; border-radius: 0.25rem; border: 1px solid #ddd;">
+                        <input type="checkbox" id="delete_cover_image" name="delete_cover_image" value="true" style="width: 18px; height: 18px; cursor: pointer;">
+                        <span style="font-weight: 500;">🗑️ Delete this cover image</span>
                     </label>
                 </div>
                 <div class="file-upload">
@@ -409,15 +409,15 @@ Built with **Python** and `SQL Server` for data processing.
 
             <div class="form-group">
                 <label for="additional_images">Additional Images</label>
-                <div id="current-additional-images" style="display: none; margin-bottom: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 0.5rem;">
+                <div id="current-additional-images" style="display: none; margin-bottom: 1rem; padding: 1rem; background: #e8f5e9; border-radius: 0.5rem; border: 2px solid #4caf50;">
                     <div>
-                        <strong>Current:</strong> <span id="current-additional-count"></span>
-                        <br><small style="color: #666;">Check below to remove, or upload new files to replace</small>
+                        <strong style="color: #2e7d32;">✓ Current:</strong> <span id="current-additional-count" style="color: #555;"></span>
+                        <br><small style="color: #666;">Upload new files below to replace, or click delete to remove all</small>
                     </div>
-                    <div id="additional-images-preview" style="display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap;"></div>
-                    <label style="margin-top: 0.5rem; display: block;">
-                        <input type="checkbox" id="delete_additional_images" name="delete_additional_images" value="true">
-                        🗑️ Remove all current additional images
+                    <div id="additional-images-preview" style="display: flex; gap: 0.5rem; margin-top: 0.75rem; flex-wrap: wrap;"></div>
+                    <label style="margin-top: 0.75rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.5rem; background: white; border-radius: 0.25rem; border: 1px solid #ddd;">
+                        <input type="checkbox" id="delete_additional_images" name="delete_additional_images" value="true" style="width: 18px; height: 18px; cursor: pointer;">
+                        <span style="font-weight: 500;">🗑️ Delete all additional images</span>
                     </label>
                 </div>
                 <div class="file-upload">
@@ -430,14 +430,14 @@ Built with **Python** and `SQL Server` for data processing.
 
             <div class="form-group">
                 <label for="demo_video">Demo Video</label>
-                <div id="current-demo-video" style="display: none; margin-bottom: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 0.5rem;">
+                <div id="current-demo-video" style="display: none; margin-bottom: 1rem; padding: 1rem; background: #e8f5e9; border-radius: 0.5rem; border: 2px solid #4caf50;">
                     <div>
-                        <strong>Current:</strong> <span id="current-video-name"></span>
-                        <br><small style="color: #666;">Check below to remove, or upload new file to replace</small>
+                        <strong style="color: #2e7d32;">✓ Current:</strong> <span id="current-video-name" style="color: #555;"></span>
+                        <br><small style="color: #666;">Upload a new file below to replace, or click delete to remove</small>
                     </div>
-                    <label style="margin-top: 0.5rem; display: block;">
-                        <input type="checkbox" id="delete_demo_video" name="delete_demo_video" value="true">
-                        🗑️ Remove current demo video
+                    <label style="margin-top: 0.75rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.5rem; background: white; border-radius: 0.25rem; border: 1px solid #ddd;">
+                        <input type="checkbox" id="delete_demo_video" name="delete_demo_video" value="true" style="width: 18px; height: 18px; cursor: pointer;">
+                        <span style="font-weight: 500;">🗑️ Delete this demo video</span>
                     </label>
                 </div>
                 <div class="file-upload">
