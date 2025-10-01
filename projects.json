@@ -10,7 +10,9 @@
     "category": "Data Analytics",
     "status": "active",
     "impact_metrics": "Impact: +8.5 league points improvement potential,ROI: 47% improvement in transfer efficiency,Championship Probability: Increased from 5.2% to 79.7%",
-    "cover_image_path": "https://images.unsplash.com/photo-1579952363873-27d3bfad9c0d?w=800&auto=format&fit=crop"
+    "cover_image_path": "https://images.unsplash.com/photo-1579952363873-27d3bfad9c0d?w=800&auto=format&fit=crop",
+    "demo_video_path": "https://www.canva.com/design/DAGzxo8J3VM/4UN-WJI8tbTppTjsJeVMiw/edit",
+    "additional_images_paths": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&auto=format&fit=crop,https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&auto=format&fit=crop"
   },
   {
     "id": 2,
@@ -23,7 +25,9 @@
     "category": "Machine Learning",
     "status": "active",
     "impact_metrics": "Annual Profits: $500K-$5M,Forecast Accuracy: 95%+,Automation: 8-10 hours/week to 30 minutes",
-    "cover_image_path": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop"
+    "cover_image_path": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop",
+    "demo_video_path": "https://www.canva.com/design/DAGzxJJLMEc/YlcBw7gUbsZXJF7ZRqudXA/watch",
+    "additional_images_paths": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop,https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop"
   },
   {
     "id": 3,
@@ -36,7 +40,9 @@
     "category": "Data Analytics",
     "status": "active",
     "impact_metrics": "Portfolio Optimization: $8-12M annually,Volatility Loss Identification: 65%,Trading Intervals Analyzed: 9,000+",
-    "cover_image_path": "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=800&auto=format&fit=crop"
+    "cover_image_path": "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=800&auto=format&fit=crop",
+    "demo_video_path": "https://www.canva.com/design/DAGz8viPYlM/Vw4Jbiq0ytMKiNwHjXuQug/watch",
+    "additional_images_paths": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&auto=format&fit=crop,https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop"
   },
   {
     "id": 4,
@@ -49,7 +55,9 @@
     "category": "Data Analytics",
     "status": "active",
     "impact_metrics": "Counties Analyzed: 3,181,Opportunity Score Methodology: Developed,Strategic Expansion Support: Enabled",
-    "cover_image_path": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop"
+    "cover_image_path": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop",
+    "demo_video_path": "https://www.canva.com/design/DAGz8viPYlM/Vw4Jbiq0ytMKiNwHjXuQug/watch",
+    "additional_images_paths": "https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?w=800&auto=format&fit=crop,https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&auto=format&fit=crop"
   },
   {
     "id": 5,
@@ -62,6 +70,8 @@
     "category": "Machine Learning",
     "status": "active",
     "impact_metrics": "Late Deliveries Reduced: 50% to 10%,Annual Savings: $4.1M,Revenue Increase: $2.3M/year via surge pricing",
-    "cover_image_path": "https://images.unsplash.com/photo-1543185377-b75a6156d0d7?w=800&auto=format&fit=crop"
+    "cover_image_path": "https://images.unsplash.com/photo-1543185377-b75a6156d0d7?w=800&auto=format&fit=crop",
+    "demo_video_path": "",
+    "additional_images_paths": "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&auto=format&fit=crop,https://images.unsplash.com/photo-1508780709619-79562169bc64?w=800&auto=format&fit=crop"
   }
 ]
