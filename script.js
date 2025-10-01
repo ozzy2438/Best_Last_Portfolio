@@ -47,8 +47,8 @@ const modalBody = document.getElementById('modal-body');
 const closeModal = document.querySelector('.close');
 const readMoreBtns = document.querySelectorAll('.read-more-btn');
 
-// Project details data
-const projectDetails = {
+// Old static project details - DEPRECATED, now using dynamic-projects.js
+const oldStaticProjectDetails = {
     'manchester-city': {
         title: 'Manchester City WSL Championship Analytics',
         content: `
@@ -297,7 +297,7 @@ const projectDetails = {
 readMoreBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         const projectId = btn.dataset.project;
-        const project = projectDetails[projectId];
+        const project = oldStaticProjectDetails[projectId];
         
         if (project) {
             modalBody.innerHTML = `
