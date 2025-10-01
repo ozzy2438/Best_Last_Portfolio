@@ -134,14 +134,15 @@ function showAlert(message, type = 'success') {
 }
 
 function updateFileLabel(input) {
-    const label = input.nextElementSibling;
-    if (input.files.length > 0) {
+    const label = document.querySelector(`label[for="${input.id}"]`);
+    if (label && input.files.length > 0) {
         if (input.files.length === 1) {
             label.textContent = `✅ ${input.files[0].name}`;
         } else {
             label.textContent = `✅ ${input.files.length} files selected`;
         }
-        label.style.color = 'var(--accent-color)';
+        label.style.color = '#27ae60';
+        label.style.fontWeight = '600';
     }
 }
 
