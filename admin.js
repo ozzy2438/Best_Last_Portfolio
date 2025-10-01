@@ -1,5 +1,52 @@
 const API_BASE_URL = 'https://best-last-portfolio-2.onrender.com/api';
 
+// Drag and drop file upload handler
+function setupDragAndDrop(input, label) {
+    if (!label) return;
+
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        label.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        label.addEventListener(eventName, () => {
+            label.style.borderColor = '#2196F3';
+            label.style.background = 'rgba(33, 150, 243, 0.1)';
+            label.style.transform = 'scale(1.02)';
+        }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        label.addEventListener(eventName, () => {
+            label.style.borderColor = '';
+            label.style.background = '';
+            label.style.transform = '';
+        }, false);
+    });
+
+    label.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+
+        if (files.length > 0) {
+            // Create a new FileList-like object for the input
+            const dataTransfer = new DataTransfer();
+            for (let i = 0; i < files.length; i++) {
+                dataTransfer.items.add(files[i]);
+            }
+            input.files = dataTransfer.files;
+
+            // Trigger change event
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+    }, false);
+}
+
 // Simple markdown to HTML converter for README copy-paste
 function markdownToHTML(text) {
     if (!text) return '';
@@ -157,6 +204,11 @@ document.addEventListener('DOMContentLoaded', function() {
     coverImageInput.addEventListener('change', () => updateFileLabel(coverImageInput));
     additionalImagesInput.addEventListener('change', () => updateFileLabel(additionalImagesInput));
     videoInput.addEventListener('change', () => updateFileLabel(videoInput));
+
+    // Setup drag & drop for all file inputs
+    setupDragAndDrop(coverImageInput, document.getElementById('cover_image_label'));
+    setupDragAndDrop(additionalImagesInput, document.getElementById('additional_images_label'));
+    setupDragAndDrop(videoInput, document.getElementById('demo_video_label'));
 
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
