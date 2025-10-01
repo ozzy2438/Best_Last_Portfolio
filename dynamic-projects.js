@@ -214,12 +214,7 @@ async function renderProjects() {
             <div class="project-card">
                 <div class="project-content">
                     <h3>No Projects Available</h3>
-                    <p>Projects are currently being loaded. Please check back later or contact the administrator.</p>
-                    <div class="project-links">
-                        <a href="admin.html" class="btn-link">
-                            <i class="fas fa-plus"></i> Add New Project
-                        </a>
-                    </div>
+                    <p>No projects found in projects.json. Check console for errors.</p>
                 </div>
             </div>
         `;
