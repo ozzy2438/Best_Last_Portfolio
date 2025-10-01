@@ -203,6 +203,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.querySelector('label[for="additional_images"]').textContent = '🖼️ Choose additional images (optional)';
                 document.querySelector('label[for="demo_video"]').textContent = '🎥 Choose demo video (optional)';
 
+                // Hide current file displays
+                document.getElementById('current-cover-image').style.display = 'none';
+                document.getElementById('current-additional-images').style.display = 'none';
+                document.getElementById('current-demo-video').style.display = 'none';
+                document.getElementById('cover_image').required = true;
+
                 loadProjects();
             } else {
                 const error = await response.json();
@@ -296,22 +302,47 @@ async function editProject(id) {
             document.getElementById('live_demo_url').value = project.live_demo_url || '';
             document.getElementById('impact_metrics').value = project.impact_metrics || '';
 
-            // Show current file paths with instructions
-            const coverImageLabel = document.querySelector('label[for="cover_image"]');
-            const additionalImagesLabel = document.querySelector('label[for="additional_images"]');
-            const videoLabel = document.querySelector('label[for="demo_video"]');
+            // Show current files with preview and delete options
+            const currentCoverDiv = document.getElementById('current-cover-image');
+            const currentAdditionalDiv = document.getElementById('current-additional-images');
+            const currentVideoDiv = document.getElementById('current-demo-video');
 
+            // Reset delete checkboxes
+            document.getElementById('delete_cover_image').checked = false;
+            document.getElementById('delete_additional_images').checked = false;
+            document.getElementById('delete_demo_video').checked = false;
+
+            // Show cover image
             if (project.cover_image_path) {
-                coverImageLabel.innerHTML = `✅ Current: ${project.cover_image_path.split('/').pop()}<br><small>Leave empty to keep current</small>`;
+                currentCoverDiv.style.display = 'block';
+                document.getElementById('current-cover-name').textContent = project.cover_image_path.split('/').pop();
+                document.getElementById('current-cover-preview').src = `${API_BASE_URL.replace('/api', '')}/${project.cover_image_path}`;
+                document.getElementById('cover_image').required = false;
+            } else {
+                currentCoverDiv.style.display = 'none';
+                document.getElementById('cover_image').required = true;
             }
 
+            // Show additional images
             if (project.additional_images_paths) {
-                const imgCount = project.additional_images_paths.split(',').length;
-                additionalImagesLabel.innerHTML = `✅ Current: ${imgCount} image(s)<br><small>Leave empty to keep current</small>`;
+                const images = project.additional_images_paths.split(',').filter(img => img.trim());
+                currentAdditionalDiv.style.display = 'block';
+                document.getElementById('current-additional-count').textContent = `${images.length} image(s)`;
+
+                const previewDiv = document.getElementById('additional-images-preview');
+                previewDiv.innerHTML = images.map(img =>
+                    `<img src="${API_BASE_URL.replace('/api', '')}/${img.trim()}" alt="Preview" style="max-width: 80px; max-height: 60px; border-radius: 0.25rem; object-fit: cover;">`
+                ).join('');
+            } else {
+                currentAdditionalDiv.style.display = 'none';
             }
 
+            // Show demo video
             if (project.demo_video_path) {
-                videoLabel.innerHTML = `✅ Current: ${project.demo_video_path.split('/').pop()}<br><small>Leave empty to keep current</small>`;
+                currentVideoDiv.style.display = 'block';
+                document.getElementById('current-video-name').textContent = project.demo_video_path.split('/').pop();
+            } else {
+                currentVideoDiv.style.display = 'none';
             }
 
             // Set editing state

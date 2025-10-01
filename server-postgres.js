@@ -189,7 +189,10 @@ app.put('/api/projects/:id', upload.fields([
             live_demo_url,
             category,
             status,
-            impact_metrics
+            impact_metrics,
+            delete_cover_image,
+            delete_additional_images,
+            delete_demo_video
         } = req.body;
 
         // Build dynamic update query
@@ -213,21 +216,36 @@ app.put('/api/projects/:id', upload.fields([
 
         let paramCount = 10;
 
-        if (req.files.cover_image) {
+        // Handle cover image
+        if (req.files && req.files.cover_image) {
             queryParts.push(`cover_image_path = $${paramCount}`);
             values.push(req.files.cover_image[0].path);
             paramCount++;
-        }
-
-        if (req.files.additional_images) {
-            queryParts.push(`additional_images_paths = $${paramCount}`);
-            values.push(req.files.additional_images.map(file => file.path).join(','));
+        } else if (delete_cover_image === 'true') {
+            queryParts.push(`cover_image_path = $${paramCount}`);
+            values.push(null);
             paramCount++;
         }
 
-        if (req.files.demo_video) {
+        // Handle additional images
+        if (req.files && req.files.additional_images) {
+            queryParts.push(`additional_images_paths = $${paramCount}`);
+            values.push(req.files.additional_images.map(file => file.path).join(','));
+            paramCount++;
+        } else if (delete_additional_images === 'true') {
+            queryParts.push(`additional_images_paths = $${paramCount}`);
+            values.push(null);
+            paramCount++;
+        }
+
+        // Handle demo video
+        if (req.files && req.files.demo_video) {
             queryParts.push(`demo_video_path = $${paramCount}`);
             values.push(req.files.demo_video[0].path);
+            paramCount++;
+        } else if (delete_demo_video === 'true') {
+            queryParts.push(`demo_video_path = $${paramCount}`);
+            values.push(null);
             paramCount++;
         }
 

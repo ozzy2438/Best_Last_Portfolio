@@ -382,6 +382,19 @@ Built with **Python** and `SQL Server` for data processing.
 
             <div class="form-group">
                 <label for="cover_image">Cover Photo *</label>
+                <div id="current-cover-image" style="display: none; margin-bottom: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 0.5rem;">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <div>
+                            <strong>Current:</strong> <span id="current-cover-name"></span>
+                            <br><small style="color: #666;">Check below to remove, or upload new file to replace</small>
+                        </div>
+                        <img id="current-cover-preview" src="" alt="Cover preview" style="max-width: 100px; max-height: 60px; border-radius: 0.25rem;">
+                    </div>
+                    <label style="margin-top: 0.5rem; display: block;">
+                        <input type="checkbox" id="delete_cover_image" name="delete_cover_image" value="true">
+                        🗑️ Remove current cover image
+                    </label>
+                </div>
                 <div class="file-upload">
                     <input type="file" id="cover_image" name="cover_image" accept="image/*">
                     <label for="cover_image" class="file-upload-label">
@@ -395,6 +408,17 @@ Built with **Python** and `SQL Server` for data processing.
 
             <div class="form-group">
                 <label for="additional_images">Additional Images</label>
+                <div id="current-additional-images" style="display: none; margin-bottom: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 0.5rem;">
+                    <div>
+                        <strong>Current:</strong> <span id="current-additional-count"></span>
+                        <br><small style="color: #666;">Check below to remove, or upload new files to replace</small>
+                    </div>
+                    <div id="additional-images-preview" style="display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap;"></div>
+                    <label style="margin-top: 0.5rem; display: block;">
+                        <input type="checkbox" id="delete_additional_images" name="delete_additional_images" value="true">
+                        🗑️ Remove all current additional images
+                    </label>
+                </div>
                 <div class="file-upload">
                     <input type="file" id="additional_images" name="additional_images" accept="image/*" multiple>
                     <label for="additional_images" class="file-upload-label">
@@ -405,6 +429,16 @@ Built with **Python** and `SQL Server` for data processing.
 
             <div class="form-group">
                 <label for="demo_video">Demo Video</label>
+                <div id="current-demo-video" style="display: none; margin-bottom: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 0.5rem;">
+                    <div>
+                        <strong>Current:</strong> <span id="current-video-name"></span>
+                        <br><small style="color: #666;">Check below to remove, or upload new file to replace</small>
+                    </div>
+                    <label style="margin-top: 0.5rem; display: block;">
+                        <input type="checkbox" id="delete_demo_video" name="delete_demo_video" value="true">
+                        🗑️ Remove current demo video
+                    </label>
+                </div>
                 <div class="file-upload">
                     <input type="file" id="demo_video" name="demo_video" accept="video/*">
                     <label for="demo_video" class="file-upload-label">
