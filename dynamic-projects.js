@@ -1,26 +1,24 @@
-const API_BASE_URL = 'https://best-last-portfolio-2.onrender.com/api';
-
+// No backend needed! Projects loaded from JSON file
 let projectDetails = {};
 
 async function loadProjectsFromAPI() {
     try {
-        console.log('🔄 Loading projects from API...');
-        console.log('🌐 API URL:', `${API_BASE_URL}/projects`);
-        const response = await fetch(`${API_BASE_URL}/projects`, {
+        console.log('🔄 Loading projects from JSON file...');
+        const response = await fetch('projects.json', {
             cache: 'no-cache',
             headers: {
                 'Cache-Control': 'no-cache'
             }
         });
-        console.log('📡 API response status:', response.status);
+        console.log('📡 JSON response status:', response.status);
 
         if (response.ok) {
             const projects = await response.json();
-            console.log('✅ Loaded', projects.length, 'projects from database');
+            console.log('✅ Loaded', projects.length, 'projects from JSON');
             console.log('📋 Project titles:', projects.map(p => p.title));
             return projects;
         } else {
-            console.error('❌ Failed to load projects from API, status:', response.status);
+            console.error('❌ Failed to load projects.json, status:', response.status);
             return [];
         }
     } catch (error) {
@@ -55,10 +53,8 @@ function createProjectCard(project) {
 
     const defaultImage = defaultImages[project.category] || defaultImages['Data Analytics'];
 
-    // Use cover_image_path first, then fallback to image_path, then default
-    const imageUrl = project.cover_image_path ?
-        `https://best-last-portfolio-2.onrender.com/${encodeURI(project.cover_image_path)}` :
-        (project.image_path ? `https://best-last-portfolio-2.onrender.com/${encodeURI(project.image_path)}` : defaultImage);
+    // Use cover_image_path (can be external URL or relative path)
+    const imageUrl = project.cover_image_path || defaultImage;
 
     // Get appropriate alt text based on category
     const altTexts = {
@@ -117,18 +113,34 @@ function prepareProjectDetails(projects) {
         `;
 
         if (project.demo_video_path) {
-            const videoUrl = `https://best-last-portfolio-2.onrender.com/${encodeURI(project.demo_video_path)}`;
-            fullContent = `
-                <div class="video-demo-section">
-                    <h3>🎥 Project Demo</h3>
-                    <div class="video-container">
-                        <video controls style="width: 100%; max-width: 800px;">
-                            <source src="${videoUrl}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+            // Support both YouTube embeds and direct video links
+            const isYouTube = project.demo_video_path.includes('youtube.com') || project.demo_video_path.includes('youtu.be');
+
+            if (isYouTube) {
+                // Extract video ID and create embed
+                let videoId = project.demo_video_path.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/)?.[1];
+                fullContent = `
+                    <div class="video-demo-section">
+                        <h3>🎥 Project Demo</h3>
+                        <div class="video-container">
+                            <iframe width="100%" height="450" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+                        </div>
                     </div>
-                </div>
-            ` + fullContent;
+                ` + fullContent;
+            } else {
+                // Direct video link
+                fullContent = `
+                    <div class="video-demo-section">
+                        <h3>🎥 Project Demo</h3>
+                        <div class="video-container">
+                            <video controls style="width: 100%; max-width: 800px;">
+                                <source src="${project.demo_video_path}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                ` + fullContent;
+            }
         }
 
         if (project.additional_images_paths) {
@@ -139,8 +151,7 @@ function prepareProjectDetails(projects) {
                     <div class="dashboard-gallery">
                         <div class="dashboard-row">
                             ${additionalImages.map(imagePath => {
-                                const imageUrl = `https://best-last-portfolio-2.onrender.com/${encodeURI(imagePath.trim())}`;
-                                return `<img src="${imageUrl}" alt="Project Screenshot" style="width: 48%; margin-right: 2%; margin-bottom: 1rem;">`;
+                                return `<img src="${imagePath.trim()}" alt="Project Screenshot" style="width: 48%; margin-right: 2%; margin-bottom: 1rem;">`;
                             }).join('')}
                         </div>
                     </div>
