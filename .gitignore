@@ -4,3 +4,16 @@ uploads/
 portfolio.db
 *.log
 .DS_Store
+
+# Remove old/conflicting files
+simple-projects.js
+admin.html
+admin.js
+server*.js
+test-*.html
+debug-*.html
+*.sql
+setup*.js
+update-*.js
+fix-*.js
+
