@@ -83,12 +83,16 @@ const storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         // Sanitize filename: remove spaces, special chars, keep only alphanumeric and extension
-        const sanitizedName = file.originalname
-            .replace(/\s+/g, '-')           // Replace spaces with hyphens
-            .replace(/[^a-zA-Z0-9.-]/g, '') // Remove special characters
-            .toLowerCase();                 // Convert to lowercase
+        const ext = path.extname(file.originalname);
+        const nameWithoutExt = path.basename(file.originalname, ext);
 
-        const uniqueSuffix = Date.now() + '-' + sanitizedName;
+        const sanitizedName = nameWithoutExt
+            .replace(/\s+/g, '-')                    // Replace spaces with hyphens
+            .replace(/[^a-zA-Z0-9-_]/g, '')          // Remove all special characters except hyphen and underscore
+            .toLowerCase()                           // Convert to lowercase
+            .substring(0, 50);                       // Limit length
+
+        const uniqueSuffix = Date.now() + '-' + sanitizedName + ext.toLowerCase();
         cb(null, uniqueSuffix);
     }
 });

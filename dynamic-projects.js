@@ -57,8 +57,8 @@ function createProjectCard(project) {
 
     // Use cover_image_path first, then fallback to image_path, then default
     const imageUrl = project.cover_image_path ?
-        `https://best-last-portfolio-2.onrender.com/${project.cover_image_path}` :
-        (project.image_path ? `https://best-last-portfolio-2.onrender.com/${project.image_path}` : defaultImage);
+        `https://best-last-portfolio-2.onrender.com/${encodeURI(project.cover_image_path)}` :
+        (project.image_path ? `https://best-last-portfolio-2.onrender.com/${encodeURI(project.image_path)}` : defaultImage);
 
     // Get appropriate alt text based on category
     const altTexts = {
@@ -117,12 +117,13 @@ function prepareProjectDetails(projects) {
         `;
 
         if (project.demo_video_path) {
+            const videoUrl = `https://best-last-portfolio-2.onrender.com/${encodeURI(project.demo_video_path)}`;
             fullContent = `
                 <div class="video-demo-section">
                     <h3>🎥 Project Demo</h3>
                     <div class="video-container">
                         <video controls style="width: 100%; max-width: 800px;">
-                            <source src="https://best-last-portfolio-2.onrender.com/${project.demo_video_path}" type="video/mp4">
+                            <source src="${videoUrl}" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
@@ -137,9 +138,10 @@ function prepareProjectDetails(projects) {
                     <h3>📸 Additional Images</h3>
                     <div class="dashboard-gallery">
                         <div class="dashboard-row">
-                            ${additionalImages.map(imagePath =>
-                                `<img src="https://best-last-portfolio-2.onrender.com/${imagePath.trim()}" alt="Project Screenshot" style="width: 48%; margin-right: 2%; margin-bottom: 1rem;">`
-                            ).join('')}
+                            ${additionalImages.map(imagePath => {
+                                const imageUrl = `https://best-last-portfolio-2.onrender.com/${encodeURI(imagePath.trim())}`;
+                                return `<img src="${imageUrl}" alt="Project Screenshot" style="width: 48%; margin-right: 2%; margin-bottom: 1rem;">`;
+                            }).join('')}
                         </div>
                     </div>
                 `;
