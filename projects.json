@@ -73,5 +73,20 @@
     "cover_image_path": "https://images.unsplash.com/photo-1543185377-b75a6156d0d7?w=800&auto=format&fit=crop",
     "demo_video_path": "https://vimeo.com/1123112765/36cb671724",
     "additional_images_paths": "https://github.com/ozzy2438/ClearPromise-NYC/raw/main/IMAGES/Image%2030-9-2025%20at%206.16%E2%80%AFPM.jpg?raw=true,https://github.com/ozzy2438/ClearPromise-NYC/blob/main/IMAGES/Image%2030-9-2025%20at%206.17%E2%80%AFPM.jpg?raw=true,https://github.com/ozzy2438/ClearPromise-NYC/blob/main/IMAGES/Image%2030-9-2025%20at%206.12%E2%80%AFPM%20(1).jpg?raw=true,https://github.com/ozzy2438/ClearPromise-NYC/raw/main/IMAGES/Image%2030-9-2025%20at%206.10%E2%80%AFPM.jpg?raw=true,https://github.com/ozzy2438/ClearPromise-NYC/raw/main/IMAGES/Image%2030-9-2025%20at%206.10%E2%80%AFPM%20(1).jpg?raw=true,https://github.com/ozzy2438/ClearPromise-NYC/raw/main/IMAGES/Image%2030-9-2025%20at%206.09%E2%80%AFPM.jpg?raw=true"
+  },
+  {
+    "id": 6,
+    "title": "VIC Business Growth Analytics",
+    "short_description": "End-to-end data pipeline analyzing business growth potential across Victoria's top 50 suburbs using web scraping, ML modeling, and interactive dashboards.",
+    "full_description": "## Overview\nComplete end-to-end data science solution for analyzing business growth potential across Victoria's top 50 suburbs. Using advanced web scraping, automated data pipelines, machine learning, and interactive dashboards, this system provides actionable insights for business expansion, market analysis, and demographic targeting.\n\n## Key Deliverables\n- Automated Selenium-based web scraping pipeline processing 25,000+ business records\n- ETL pipeline integrating demographic, business, and economic data from multiple sources\n- Predictive ML model (Gradient Boosting) achieving R²=0.89 for business growth forecasting\n- SQL Server data warehouse with Power BI dashboard featuring geospatial visualization\n- Comprehensive analysis identifying high-growth suburbs and market opportunities",
+    "technologies": "Python, Selenium, SQL Server, Power BI, Scikit-learn, Pandas, GeoPandas, Folium, XGBoost",
+    "github_url": "https://github.com/ozzy2438/VIC_Business_Growth.git",
+    "live_demo_url": "",
+    "category": "Machine Learning",
+    "status": "active",
+    "impact_metrics": "Business Records Analyzed: 1,585,Model Accuracy: R²=0.89 (89%),Suburbs Profiled: 50,Data Sources Integrated: 3 (Government + Web Scraped)",
+    "cover_image_path": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop",
+    "demo_video_path": "https://github.com/user-attachments/assets/8d0a9a16-a9de-4569-8cc4-c54d4c2e91dd",
+    "additional_images_paths": "https://github.com/user-attachments/assets/e767f3b3-de10-4f53-917a-6f6aba155045,https://github.com/user-attachments/assets/e04ef60a-b184-4168-9648-2e6a3ef001bf,https://github.com/user-attachments/assets/174db43f-3092-4a65-98a4-7016cae1606b"
   }
 ]
