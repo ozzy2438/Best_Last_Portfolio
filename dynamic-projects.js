@@ -113,9 +113,10 @@ function prepareProjectDetails(projects) {
         `;
 
         if (project.demo_video_path) {
-            // Support YouTube, Vimeo, and direct video links
+            // Support YouTube, Vimeo, GIF, and direct video links
             const isYouTube = project.demo_video_path.includes('youtube.com') || project.demo_video_path.includes('youtu.be');
             const isVimeo = project.demo_video_path.includes('vimeo.com');
+            const isGif = project.demo_video_path.toLowerCase().endsWith('.gif');
 
             if (isYouTube) {
                 // Extract YouTube video ID and create embed
@@ -138,6 +139,16 @@ function prepareProjectDetails(projects) {
                         <h3>🎥 Project Demo</h3>
                         <div class="video-container">
                             <iframe src="https://player.vimeo.com/video/${videoId}${hash}" width="100%" height="450" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                ` + fullContent;
+            } else if (isGif) {
+                // GIF animation - display as image
+                fullContent = `
+                    <div class="video-demo-section">
+                        <h3>📊 Interactive Dashboard</h3>
+                        <div class="video-container">
+                            <img src="${project.demo_video_path}" alt="Project Dashboard Animation" style="width: 100%; max-width: 800px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                         </div>
                     </div>
                 ` + fullContent;
